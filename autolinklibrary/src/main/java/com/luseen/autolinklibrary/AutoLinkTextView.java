@@ -63,9 +63,19 @@ public class AutoLinkTextView extends TextView {
 
     private SpannableString makeSpannableString(String text) {
 
-        final SpannableString spannableString = new SpannableString(text);
-
         List<AutoLinkItem> autoLinkItems = matchedRanges(text);
+
+        int shiftLeftPos = 0;
+        for (AutoLinkItem item : autoLinkItems) {
+                item.shiftLeft(shiftLeftPos);
+            if (item.getShortText() != null) {
+                text = text.replaceFirst(item.getMatchedText(), item.getShortText());
+                shiftLeftPos += (item.getMatchedText().length() - item.getShortText().length());
+            }
+        }
+
+
+        final SpannableString spannableString = new SpannableString(text);
 
         for (final AutoLinkItem autoLinkItem : autoLinkItems) {
             int currentColor = getColorByMode(autoLinkItem.getAutoLinkMode());
@@ -79,7 +89,6 @@ public class AutoLinkTextView extends TextView {
                                 autoLinkItem.getMatchedText());
                 }
             };
-
             spannableString.setSpan(
                     clickableSpan,
                     autoLinkItem.getStartPoint(),
@@ -176,6 +185,7 @@ public class AutoLinkTextView extends TextView {
     public void addAutoLinkMode(AutoLinkMode... autoLinkModes) {
         this.autoLinkModes = autoLinkModes;
     }
+
 
     public void setCustomRegex(String regex) {
         this.customRegex = regex;

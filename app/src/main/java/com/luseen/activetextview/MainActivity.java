@@ -21,11 +21,8 @@ public class MainActivity extends AppCompatActivity {
         //autoLinkTextView.enableUnderLine();
 
         autoLinkTextView.addAutoLinkMode(
-                AutoLinkMode.MODE_HASHTAG,
-                AutoLinkMode.MODE_PHONE,
-                AutoLinkMode.MODE_URL,
-                AutoLinkMode.MODE_EMAIL,
-                AutoLinkMode.MODE_MENTION);
+                AutoLinkMode.MODE_URL
+                );
 
         //autoLinkTextView.setCustomRegex("\\sAllo\\b");
 
