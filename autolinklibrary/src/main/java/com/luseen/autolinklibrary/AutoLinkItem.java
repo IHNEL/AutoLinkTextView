@@ -20,7 +20,10 @@ class AutoLinkItem {
 
         int length = matchedText.length();
         if (length > 30 && autoLinkMode == AutoLinkMode.MODE_URL) {
-            shortText = matchedText.substring(0, 15) + "..." + matchedText.substring(length - 12);
+
+            int whereToCut = matchedText.indexOf("/", matchedText.indexOf("."));
+            shortText = matchedText.substring(0, whereToCut) + "/...";
+
             this.endPoint = startPoint + shortText.length();
         }
     }
